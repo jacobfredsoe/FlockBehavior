@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <ContentProjectGUID>{A709E37E-8656-4AF0-BF39-8C2C1F09EEF1}</ContentProjectGUID>
+      <TargetPlatform>Windows</TargetPlatform>
+      <TargetProfile>Reach</TargetProfile>
+      <BuildConfiguration>Debug</BuildConfiguration>
+      <CompressContent>false</CompressContent>
+      <RootDirectory>U:\Visual Studio 2013\C#\Projects\FlockBehavior\FlockBehavior\FlockBehaviorContent\</RootDirectory>
+      <LoggerRootDirectory>U:\Visual Studio 2013\C#\Projects\FlockBehavior\FlockBehavior\FlockBehavior\</LoggerRootDirectory>
+      <IntermediateDirectory>U:\Visual Studio 2013\C#\Projects\FlockBehavior\FlockBehavior\FlockBehavior\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>U:\Visual Studio 2013\C#\Projects\FlockBehavior\FlockBehavior\FlockBehavior\bin\x86\Debug\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\WINDOWS\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2014-10-10T11:20:42.3275366+02:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>
