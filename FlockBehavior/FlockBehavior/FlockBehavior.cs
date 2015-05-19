@@ -18,6 +18,11 @@ namespace FlockBehavior
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Texture2D boidTexture;
+        List<Boid> boids = new List<Boid>();
+        static List<string> messages = new List<string>();
+        string textMessage = "";
+        SpriteFont stdFont;
 
         public FlockBehavior()
         {
@@ -40,6 +45,8 @@ namespace FlockBehavior
             // TODO: Add your initialization logic here
 
             base.Initialize();
+
+            boids.Add(new Boid(boidTexture));
         }
 
         /// <summary>
@@ -52,6 +59,8 @@ namespace FlockBehavior
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            boidTexture = Content.Load<Texture2D>("boid");
+            stdFont = Content.Load<SpriteFont>("StdFont");
         }
 
         /// <summary>
@@ -75,6 +84,17 @@ namespace FlockBehavior
                 this.Exit();
 
             // TODO: Add your update logic here
+            foreach(Boid boid in boids)
+            {
+                boid.Update(gameTime, Mouse.GetState());
+            }
+
+            textMessage = "";
+            foreach(string s in messages)
+            {
+                textMessage += s + "\r\n";
+            }
+            messages = new List<string>();
 
             base.Update(gameTime);
         }
@@ -87,9 +107,22 @@ namespace FlockBehavior
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            spriteBatch.Begin();
             // TODO: Add your drawing code here
+            foreach (Boid boid in boids)
+            {
+                boid.Draw(spriteBatch);
+            }
 
+            spriteBatch.DrawString(stdFont, textMessage, new Vector2(20, 20), Color.White);
+
+            spriteBatch.End();
             base.Draw(gameTime);
+        }
+
+        public static void sendMessage(string message)
+        {
+            messages.Add(message);
         }
     }
 }

@@ -4,3 +4,5 @@ U:\Visual Studio 2013\C#\Projects\FlockBehavior\FlockBehavior\FlockBehavior\bin\
 U:\Visual Studio 2013\C#\Projects\FlockBehavior\FlockBehavior\FlockBehavior\bin\x86\Debug\FlockBehavior.pdb
 U:\Visual Studio 2013\C#\Projects\FlockBehavior\FlockBehavior\FlockBehavior\obj\x86\Debug\FlockBehavior.exe
 U:\Visual Studio 2013\C#\Projects\FlockBehavior\FlockBehavior\FlockBehavior\obj\x86\Debug\FlockBehavior.pdb
+U:\Visual Studio 2013\C#\Projects\FlockBehavior\FlockBehavior\FlockBehavior\bin\x86\Debug\Content\boid.xnb
+U:\Visual Studio 2013\C#\Projects\Flockbehavior\FlockBehavior\FlockBehavior\bin\x86\Debug\Content\StdFont.xnb
