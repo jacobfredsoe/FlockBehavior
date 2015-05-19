@@ -14,15 +14,19 @@ namespace FlockBehavior
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Game1 : Microsoft.Xna.Framework.Game
+    public class FlockBehavior : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        public Game1()
+        public FlockBehavior()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            graphics.PreferredBackBufferHeight = Constants.WINDOW_HEIGHT;
+            graphics.PreferredBackBufferWidth = Constants.WINDOW_WIDTH;
+            this.IsMouseVisible = true;
         }
 
         /// <summary>
