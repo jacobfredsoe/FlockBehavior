@@ -21,11 +21,12 @@ namespace FlockBehavior
 
         public Boid(Texture2D texture)
         {
-            direction = new Vector2(1, 0);
-            speed = 0.1f;
+            direction = new Vector2(0, -2);
+            speed = 2.5f;
             angle = 0;
             location = new Vector2(Constants.WINDOW_WIDTH / 2, Constants.WINDOW_HEIGHT / 2);
-            maxTurnSpeed = 0.01f;
+            maxTurnSpeed = 0.05f;
+            
 
             this.texture = texture;
 
@@ -35,26 +36,62 @@ namespace FlockBehavior
 
         public void Update(GameTime gameTime, MouseState mouse)
         {
-            float angleToMouse = (float)(Math.Atan2(mouse.Y - location.Y, mouse.X - location.X));
+            Vector2 velocity = direction;
+            velocity.Normalize();
+            location += velocity * speed;
 
-            float angleAdjusted = (float)(angle - Math.PI / 2);
+            
+            //direction = RotateRadians(direction, maxTurnSpeed);
+            if (mouse.LeftButton == ButtonState.Pressed) direction = RotateRadians(direction, maxTurnSpeed);
+            
+
+            Vector2 mouseVector = new Vector2(mouse.X - location.X, mouse.Y - location.Y);
 
 
-            if (mouse.LeftButton == ButtonState.Pressed) angle += maxTurnSpeed;
-            if (mouse.RightButton == ButtonState.Pressed) angle -= maxTurnSpeed;
+            if (findAngle(velocity, mouseVector) < Math.PI) direction = RotateRadians(direction, maxTurnSpeed);
+            else direction = RotateRadians(direction, -maxTurnSpeed);
 
-            float relationAngle = MathHelper.WrapAngle((float)(angle - Math.PI / 2));
+            angle = findAngle(new Vector2(0, -1), direction);
 
-
-
-            FlockBehavior.sendMessage("angleToMouse: " + (angleToMouse - relationAngle));
-            FlockBehavior.sendMessage("angle: " + angle.ToString());
-            FlockBehavior.sendMessage("angleAdjusted: " + relationAngle);
+            FlockBehavior.sendMessage("Velocity: " + velocity.ToString());
+            FlockBehavior.sendMessage("MouseVector: " + mouseVector.ToString());
+            FlockBehavior.sendMessage("Angle: " + MathHelper.ToDegrees(findAngle(velocity, mouseVector)));
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, location, sourceRectangle, Color.White, angle, origin, 1.0f, SpriteEffects.None, 1);
+        }
+
+        /// <summary>
+        /// Finds clockwise angle between two vectors
+        /// </summary>
+        /// <param name="v1">vector 1</param>
+        /// <param name="v2">vector 2</param>
+        /// <returns>radians between the vectors</returns>
+        public static float findAngle(Vector2 v1, Vector2 v2)
+        {
+            v1 = new Vector2(v1.X, -v1.Y);
+            v2 = new Vector2(v2.X, -v2.Y);
+
+            float dotProduct = Vector2.Dot(v1, v2);
+            float determinant = v1.X * v2.Y - v1.Y * v2.X;
+            float magnitude = v1.Length() * v2.Length();
+
+            if (determinant > 0) return (float)(2 * Math.PI - Math.Acos(dotProduct / magnitude));
+            else return (float)Math.Acos(dotProduct / magnitude);
+        }
+
+        public void influenceBoid(Point pointOfInterest)
+        {
+            //Move towards that point
+        }
+
+        public Vector2 RotateRadians(Vector2 v, double radians)
+        {
+            float ca = (float)Math.Cos(radians);
+            float sa = (float)Math.Sin(radians);
+            return new Vector2(ca * v.X - sa * v.Y, sa * v.X + ca * v.Y);
         }
     }
 }

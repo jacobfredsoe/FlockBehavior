@@ -9,5 +9,7 @@ namespace FlockBehavior
     {
         public const int WINDOW_HEIGHT = 800;
         public const int WINDOW_WIDTH = 800;
+
+        public enum EffectState { attract, scare };
     }
 }
