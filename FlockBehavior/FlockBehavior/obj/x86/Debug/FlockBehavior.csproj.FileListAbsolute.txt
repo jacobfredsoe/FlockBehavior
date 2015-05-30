@@ -6,3 +6,11 @@ U:\Visual Studio 2013\C#\Projects\FlockBehavior\FlockBehavior\FlockBehavior\obj\
 U:\Visual Studio 2013\C#\Projects\FlockBehavior\FlockBehavior\FlockBehavior\obj\x86\Debug\FlockBehavior.pdb
 U:\Visual Studio 2013\C#\Projects\FlockBehavior\FlockBehavior\FlockBehavior\bin\x86\Debug\Content\boid.xnb
 U:\Visual Studio 2013\C#\Projects\Flockbehavior\FlockBehavior\FlockBehavior\bin\x86\Debug\Content\StdFont.xnb
+F:\C#\XNA\FlockBehavior\FlockBehavior\FlockBehavior\bin\x86\Debug\Content\boid.xnb
+F:\C#\XNA\FlockBehavior\FlockBehavior\FlockBehavior\bin\x86\Debug\Content\StdFont.xnb
+F:\C#\XNA\FlockBehavior\FlockBehavior\FlockBehavior\bin\x86\Debug\FlockBehavior.exe
+F:\C#\XNA\FlockBehavior\FlockBehavior\FlockBehavior\bin\x86\Debug\FlockBehavior.pdb
+F:\C#\XNA\FlockBehavior\FlockBehavior\FlockBehavior\obj\x86\Debug\FlockBehavior.csprojResolveAssemblyReference.cache
+F:\C#\XNA\FlockBehavior\FlockBehavior\FlockBehavior\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+F:\C#\XNA\FlockBehavior\FlockBehavior\FlockBehavior\obj\x86\Debug\FlockBehavior.exe
+F:\C#\XNA\FlockBehavior\FlockBehavior\FlockBehavior\obj\x86\Debug\FlockBehavior.pdb

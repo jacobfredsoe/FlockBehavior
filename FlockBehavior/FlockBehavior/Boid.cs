@@ -18,16 +18,19 @@ namespace FlockBehavior
         private Rectangle sourceRectangle;
         private Vector2 origin;
         private float maxTurnSpeed;
+        private Random rand;
+        private Vector2 influenceVector;
 
-        public Boid(Texture2D texture)
+        public Boid(Texture2D texture, Vector2 location)
         {
-            direction = new Vector2(0, -2);
+            rand = new Random();
+            direction = new Vector2(0, -1);
             speed = 2.5f;
             angle = 0;
-            location = new Vector2(Constants.WINDOW_WIDTH / 2, Constants.WINDOW_HEIGHT / 2);
+            this.location = location;
             maxTurnSpeed = 0.05f;
-            
 
+            influenceVector = new Vector2(0, 0);
             this.texture = texture;
 
             sourceRectangle = new Rectangle(0, 0, texture.Width, texture.Height);
@@ -36,26 +39,24 @@ namespace FlockBehavior
 
         public void Update(GameTime gameTime, MouseState mouse)
         {
+            //Find and turn the boid in the correct direction
+            if (Constants.findAngle(direction, influenceVector) < Math.PI) direction = Constants.rotateRadians(direction, maxTurnSpeed);
+            else direction = Constants.rotateRadians(direction, -maxTurnSpeed);
+
+            //Set the angle of the texture to follow
+            angle = Constants.findAngle(new Vector2(0, -1), direction);
+
+            //Move the boid
             Vector2 velocity = direction;
             velocity.Normalize();
             location += velocity * speed;
 
-            
-            //direction = RotateRadians(direction, maxTurnSpeed);
-            if (mouse.LeftButton == ButtonState.Pressed) direction = RotateRadians(direction, maxTurnSpeed);
-            
-
-            Vector2 mouseVector = new Vector2(mouse.X - location.X, mouse.Y - location.Y);
-
-
-            if (findAngle(velocity, mouseVector) < Math.PI) direction = RotateRadians(direction, maxTurnSpeed);
-            else direction = RotateRadians(direction, -maxTurnSpeed);
-
-            angle = findAngle(new Vector2(0, -1), direction);
-
             FlockBehavior.sendMessage("Velocity: " + velocity.ToString());
-            FlockBehavior.sendMessage("MouseVector: " + mouseVector.ToString());
-            FlockBehavior.sendMessage("Angle: " + MathHelper.ToDegrees(findAngle(velocity, mouseVector)));
+            FlockBehavior.sendMessage("MouseVector: " + influenceVector.ToString());
+
+            //Reset the influence
+            influenceVector.X = 0;
+            influenceVector.Y = 0;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -63,35 +64,9 @@ namespace FlockBehavior
             spriteBatch.Draw(texture, location, sourceRectangle, Color.White, angle, origin, 1.0f, SpriteEffects.None, 1);
         }
 
-        /// <summary>
-        /// Finds clockwise angle between two vectors
-        /// </summary>
-        /// <param name="v1">vector 1</param>
-        /// <param name="v2">vector 2</param>
-        /// <returns>radians between the vectors</returns>
-        public static float findAngle(Vector2 v1, Vector2 v2)
-        {
-            v1 = new Vector2(v1.X, -v1.Y);
-            v2 = new Vector2(v2.X, -v2.Y);
-
-            float dotProduct = Vector2.Dot(v1, v2);
-            float determinant = v1.X * v2.Y - v1.Y * v2.X;
-            float magnitude = v1.Length() * v2.Length();
-
-            if (determinant > 0) return (float)(2 * Math.PI - Math.Acos(dotProduct / magnitude));
-            else return (float)Math.Acos(dotProduct / magnitude);
-        }
-
         public void influenceBoid(Point pointOfInterest)
         {
-            //Move towards that point
-        }
-
-        public Vector2 RotateRadians(Vector2 v, double radians)
-        {
-            float ca = (float)Math.Cos(radians);
-            float sa = (float)Math.Sin(radians);
-            return new Vector2(ca * v.X - sa * v.Y, sa * v.X + ca * v.Y);
+            influenceVector += new Vector2(pointOfInterest.X - location.X, pointOfInterest.Y - location.Y);
         }
     }
 }

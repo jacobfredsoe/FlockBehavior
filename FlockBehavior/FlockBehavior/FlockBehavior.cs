@@ -23,6 +23,7 @@ namespace FlockBehavior
         static List<string> messages = new List<string>();
         string textMessage = "";
         SpriteFont stdFont;
+        Random rand = new Random();
 
         public FlockBehavior()
         {
@@ -46,7 +47,9 @@ namespace FlockBehavior
 
             base.Initialize();
 
-            boids.Add(new Boid(boidTexture));
+            boids.Add(new Boid(boidTexture, new Vector2(rand.Next(Constants.WINDOW_WIDTH), rand.Next(Constants.WINDOW_HEIGHT))));
+            boids.Add(new Boid(boidTexture, new Vector2(rand.Next(Constants.WINDOW_WIDTH), rand.Next(Constants.WINDOW_HEIGHT))));
+            boids.Add(new Boid(boidTexture, new Vector2(rand.Next(Constants.WINDOW_WIDTH), rand.Next(Constants.WINDOW_HEIGHT))));
         }
 
         /// <summary>
@@ -84,9 +87,11 @@ namespace FlockBehavior
                 this.Exit();
 
             // TODO: Add your update logic here
+            MouseState mouse = Mouse.GetState();
             foreach(Boid boid in boids)
             {
                 boid.Update(gameTime, Mouse.GetState());
+                boid.influenceBoid(new Point(mouse.X, mouse.Y));
             }
 
             textMessage = "";

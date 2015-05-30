@@ -7,8 +7,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>U:\Visual Studio 2013\C#\Projects\FlockBehavior\FlockBehavior\FlockBehavior\bin\x86\Debug\Content\boid.xnb</Output>
-      <Time>2015-05-19T14:20:56.499798+02:00</Time>
+      <Output>F:\C#\XNA\FlockBehavior\FlockBehavior\FlockBehavior\bin\x86\Debug\Content\boid.xnb</Output>
+      <Time>2015-05-30T22:37:39.1914233+02:00</Time>
     </Item>
     <Item>
       <Source>StdFont.spritefont</Source>
@@ -16,8 +16,8 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>U:\Visual Studio 2013\C#\Projects\Flockbehavior\FlockBehavior\FlockBehavior\bin\x86\Debug\Content\StdFont.xnb</Output>
-      <Time>2015-05-19T14:52:53.1324109+02:00</Time>
+      <Output>F:\C#\XNA\FlockBehavior\FlockBehavior\FlockBehavior\bin\x86\Debug\Content\StdFont.xnb</Output>
+      <Time>2015-05-30T22:37:39.1894232+02:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -26,10 +26,10 @@
       <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>U:\Visual Studio 2013\C#\Projects\Flockbehavior\FlockBehavior\FlockBehaviorContent\</RootDirectory>
-      <LoggerRootDirectory>U:\Visual Studio 2013\C#\Projects\Flockbehavior\FlockBehavior\FlockBehavior\</LoggerRootDirectory>
-      <IntermediateDirectory>U:\Visual Studio 2013\C#\Projects\Flockbehavior\FlockBehavior\FlockBehavior\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>U:\Visual Studio 2013\C#\Projects\Flockbehavior\FlockBehavior\FlockBehavior\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>F:\C#\XNA\FlockBehavior\FlockBehavior\FlockBehaviorContent\</RootDirectory>
+      <LoggerRootDirectory>F:\C#\XNA\FlockBehavior\FlockBehavior\FlockBehavior\</LoggerRootDirectory>
+      <IntermediateDirectory>F:\C#\XNA\FlockBehavior\FlockBehavior\FlockBehavior\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>F:\C#\XNA\FlockBehavior\FlockBehavior\FlockBehavior\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
@@ -57,8 +57,8 @@
         <Value>2011-09-01T16:22:30+02:00</Value>
       </Assembly>
       <Assembly>
-        <Key>C:\WINDOWS\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2014-10-10T11:20:42.3275366+02:00</Value>
+        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2014-10-14T18:07:28.0809202+02:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>
