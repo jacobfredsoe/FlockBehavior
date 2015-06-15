@@ -10,8 +10,13 @@ namespace FlockBehavior
     {
         public const int WINDOW_HEIGHT = 800;
         public const int WINDOW_WIDTH = 800;
+        public const int BORDER_DISTANCE = 50;
 
         public enum EffectState { attract, scare };
+
+        public const float BOID_SPEED = 2.5f;
+        public const float BOID_TURNSPEED = 0.05f;
+
 
         /// <summary>
         /// Finds clockwise angle between two vectors

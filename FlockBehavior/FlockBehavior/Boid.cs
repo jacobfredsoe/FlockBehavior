@@ -17,21 +17,21 @@ namespace FlockBehavior
         private float angle;
         private Rectangle sourceRectangle;
         private Vector2 origin;
-        private float maxTurnSpeed;
-        private Random rand;
+        private float turnspeed;
         private Vector2 influenceVector;
+        private Vector2 borders;
 
-        public Boid(Texture2D texture, Vector2 location)
+        public Boid(Texture2D texture, Vector2 location, float speed, float turnspeed, Vector2 borders)
         {
-            rand = new Random();
             direction = new Vector2(0, -1);
-            speed = 2.5f;
             angle = 0;
-            this.location = location;
-            maxTurnSpeed = 0.05f;
-
             influenceVector = new Vector2(0, 0);
+
+            this.speed = speed;
+            this.location = location;
+            this.turnspeed = turnspeed;
             this.texture = texture;
+            this.borders = borders;
 
             sourceRectangle = new Rectangle(0, 0, texture.Width, texture.Height);
             origin = new Vector2(texture.Width / 2, texture.Height / 2);
@@ -39,9 +39,14 @@ namespace FlockBehavior
 
         public void Update(GameTime gameTime, MouseState mouse)
         {
+            Cage();
+            if(influenceVector.Length() == 0)
+            {
+                influenceVector = direction * speed;
+            }
             //Find and turn the boid in the correct direction
-            if (Constants.findAngle(direction, influenceVector) < Math.PI) direction = Constants.rotateRadians(direction, maxTurnSpeed);
-            else direction = Constants.rotateRadians(direction, -maxTurnSpeed);
+            if (Constants.findAngle(direction, influenceVector) < Math.PI) direction = Constants.rotateRadians(direction, turnspeed);
+            else direction = Constants.rotateRadians(direction, -turnspeed);
 
             //Set the angle of the texture to follow
             angle = Constants.findAngle(new Vector2(0, -1), direction);
@@ -57,6 +62,28 @@ namespace FlockBehavior
             //Reset the influence
             influenceVector.X = 0;
             influenceVector.Y = 0;
+        }
+
+        private void Cage()
+        {
+            if (location.X > borders.X - Constants.BORDER_DISTANCE)
+            {
+                influenceBoid(new Point(0, (int)location.Y));
+            }
+            else if(location.X < Constants.BORDER_DISTANCE)
+            {
+                influenceBoid(new Point((int)borders.X, (int)location.Y));
+            }
+            else if(location.Y > borders.Y - Constants.BORDER_DISTANCE)
+            {
+                influenceBoid(new Point((int)location.X, 0));
+            }
+            else if(location.Y < Constants.BORDER_DISTANCE)
+            {
+                influenceBoid(new Point((int)borders.Y, (int)location.X));
+            }
+
+
         }
 
         public void Draw(SpriteBatch spriteBatch)

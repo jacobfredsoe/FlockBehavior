@@ -47,9 +47,9 @@ namespace FlockBehavior
 
             base.Initialize();
 
-            boids.Add(new Boid(boidTexture, new Vector2(rand.Next(Constants.WINDOW_WIDTH), rand.Next(Constants.WINDOW_HEIGHT))));
-            boids.Add(new Boid(boidTexture, new Vector2(rand.Next(Constants.WINDOW_WIDTH), rand.Next(Constants.WINDOW_HEIGHT))));
-            boids.Add(new Boid(boidTexture, new Vector2(rand.Next(Constants.WINDOW_WIDTH), rand.Next(Constants.WINDOW_HEIGHT))));
+            boids.Add(new Boid(boidTexture, new Vector2(rand.Next(Constants.WINDOW_WIDTH), rand.Next(Constants.WINDOW_HEIGHT)), Constants.BOID_SPEED, Constants.BOID_TURNSPEED, new Vector2(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT)));
+            boids.Add(new Boid(boidTexture, new Vector2(rand.Next(Constants.WINDOW_WIDTH), rand.Next(Constants.WINDOW_HEIGHT)), Constants.BOID_SPEED, Constants.BOID_TURNSPEED, new Vector2(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT)));
+            boids.Add(new Boid(boidTexture, new Vector2(rand.Next(Constants.WINDOW_WIDTH), rand.Next(Constants.WINDOW_HEIGHT)), Constants.BOID_SPEED, Constants.BOID_TURNSPEED, new Vector2(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT)));
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace FlockBehavior
             foreach(Boid boid in boids)
             {
                 boid.Update(gameTime, Mouse.GetState());
-                boid.influenceBoid(new Point(mouse.X, mouse.Y));
+                //boid.influenceBoid(new Point(mouse.X, mouse.Y));
             }
 
             textMessage = "";
