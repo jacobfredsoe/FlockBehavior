@@ -47,9 +47,10 @@ namespace FlockBehavior
 
             base.Initialize();
 
-            boids.Add(new Boid(boidTexture, new Vector2(rand.Next(Constants.WINDOW_WIDTH), rand.Next(Constants.WINDOW_HEIGHT)), Constants.BOID_SPEED, Constants.BOID_TURNSPEED, new Vector2(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT)));
-            boids.Add(new Boid(boidTexture, new Vector2(rand.Next(Constants.WINDOW_WIDTH), rand.Next(Constants.WINDOW_HEIGHT)), Constants.BOID_SPEED, Constants.BOID_TURNSPEED, new Vector2(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT)));
-            boids.Add(new Boid(boidTexture, new Vector2(rand.Next(Constants.WINDOW_WIDTH), rand.Next(Constants.WINDOW_HEIGHT)), Constants.BOID_SPEED, Constants.BOID_TURNSPEED, new Vector2(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT)));
+            for (int i = 0; i < 25; i++ )
+            {
+                boids.Add(new Sparrow(boidTexture, new Vector2(rand.Next(Constants.WINDOW_WIDTH), rand.Next(Constants.WINDOW_HEIGHT)), Constants.BOID_SPEED_MIN + (float)(rand.NextDouble() * Constants.BOID_SPEED_RANGE), Constants.BOID_TURNSPEED, new Vector2(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT)));
+            }
         }
 
         /// <summary>
@@ -88,10 +89,9 @@ namespace FlockBehavior
 
             // TODO: Add your update logic here
             MouseState mouse = Mouse.GetState();
-            foreach(Boid boid in boids)
+            foreach(Sparrow boid in boids)
             {
-                boid.Update(gameTime, Mouse.GetState());
-                //boid.influenceBoid(new Point(mouse.X, mouse.Y));
+                boid.Update(gameTime, boids);
             }
 
             textMessage = "";

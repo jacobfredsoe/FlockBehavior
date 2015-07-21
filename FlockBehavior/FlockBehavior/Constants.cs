@@ -10,12 +10,16 @@ namespace FlockBehavior
     {
         public const int WINDOW_HEIGHT = 800;
         public const int WINDOW_WIDTH = 800;
-        public const int BORDER_DISTANCE = 50;
+        public const int BORDER_DISTANCE = 100;
 
         public enum EffectState { attract, scare };
 
-        public const float BOID_SPEED = 2.5f;
-        public const float BOID_TURNSPEED = 0.05f;
+        public const float BOID_SPEED_RANGE = 2.0f;
+        public const float BOID_SPEED_MIN = 2.0f;
+        public const float BOID_TURNSPEED = 0.15f;
+
+        public const float GLOCAL_INFLUENCE_DISTANCE = 100;
+        public const float SPARROW_INFLUENCE_DISTANCE = 50;
 
 
         /// <summary>
@@ -48,6 +52,33 @@ namespace FlockBehavior
             float ca = (float)Math.Cos(radians);
             float sa = (float)Math.Sin(radians);
             return new Vector2(ca * v.X - sa * v.Y, sa * v.X + ca * v.Y);
+        }
+
+        /// <summary>
+        /// Adjust a point so that it is moved according to how close it is to the object
+        /// </summary>
+        /// <param name="unadjustedPoint">The point that is to be moved</param>
+        /// <param name="distance">how close it is to the object</param>
+        /// <param name="influenceDistance">how close the other object has to be, before considdering it</param>
+        /// <returns></returns>
+        public static Point distanceAdjust(Point unadjustedPoint, float distance, float influenceDistance)
+        {
+            float proximityAdjusting = 1 / (distance / influenceDistance);
+
+            Point adjustedPoint = new Point((int)(unadjustedPoint.X * proximityAdjusting), (int)(unadjustedPoint.Y * proximityAdjusting));
+
+            return adjustedPoint;
+        }
+
+        /// <summary>
+        /// Overload method
+        /// </summary>
+        /// <param name="unadjustedPoint"></param>
+        /// <param name="distance"></param>
+        /// <returns></returns>
+        public static Point distanceAdjust(Point unadjustedPoint, float distance)
+        {
+            return distanceAdjust(unadjustedPoint, distance, GLOCAL_INFLUENCE_DISTANCE);
         }
     }
 }

@@ -21,6 +21,11 @@ namespace FlockBehavior
         private Vector2 influenceVector;
         private Vector2 borders;
 
+        public Vector2 Location
+        {
+            get {  return location;}
+        }
+
         public Boid(Texture2D texture, Vector2 location, float speed, float turnspeed, Vector2 borders)
         {
             direction = new Vector2(0, -1);
@@ -37,16 +42,16 @@ namespace FlockBehavior
             origin = new Vector2(texture.Width / 2, texture.Height / 2);
         }
 
-        public void Update(GameTime gameTime, MouseState mouse)
+        public void Update(GameTime gameTime)
         {
             Cage();
-            if(influenceVector.Length() == 0)
+
+            if(influenceVector.Length() != 0)
             {
-                influenceVector = direction * speed;
+                //Find and turn the boid in the correct direction
+                if (Constants.findAngle(direction, influenceVector) < Math.PI) direction = Constants.rotateRadians(direction, turnspeed);
+                else direction = Constants.rotateRadians(direction, -turnspeed);
             }
-            //Find and turn the boid in the correct direction
-            if (Constants.findAngle(direction, influenceVector) < Math.PI) direction = Constants.rotateRadians(direction, turnspeed);
-            else direction = Constants.rotateRadians(direction, -turnspeed);
 
             //Set the angle of the texture to follow
             angle = Constants.findAngle(new Vector2(0, -1), direction);
@@ -55,10 +60,7 @@ namespace FlockBehavior
             Vector2 velocity = direction;
             velocity.Normalize();
             location += velocity * speed;
-
-            FlockBehavior.sendMessage("Velocity: " + velocity.ToString());
-            FlockBehavior.sendMessage("MouseVector: " + influenceVector.ToString());
-
+            
             //Reset the influence
             influenceVector.X = 0;
             influenceVector.Y = 0;
@@ -66,24 +68,34 @@ namespace FlockBehavior
 
         private void Cage()
         {
-            if (location.X > borders.X - Constants.BORDER_DISTANCE)
+            if (location.X > borders.X - Constants.BORDER_DISTANCE) //Right side
             {
-                influenceBoid(new Point(0, (int)location.Y));
+                Point influencePoint = new Point((int)(borders.X - Constants.BORDER_DISTANCE * 2), (int)location.Y);
+                Point adjustedPoint = Constants.distanceAdjust(influencePoint, borders.X - Constants.BORDER_DISTANCE);
+                adjustedPoint.Y = (int)location.Y;
+                influenceBoid(influencePoint);
             }
-            else if(location.X < Constants.BORDER_DISTANCE)
+            else if(location.X < Constants.BORDER_DISTANCE) //Left side
             {
-                influenceBoid(new Point((int)borders.X, (int)location.Y));
+                Point influencePoint = new Point((int)(Constants.BORDER_DISTANCE * 2), (int)location.Y);
+                Point adjustedPoint = Constants.distanceAdjust(influencePoint, location.X);
+                adjustedPoint.Y = (int)location.Y;
+                influenceBoid(influencePoint);
             }
-            else if(location.Y > borders.Y - Constants.BORDER_DISTANCE)
+            else if(location.Y > borders.Y - Constants.BORDER_DISTANCE) //Bottom
             {
-                influenceBoid(new Point((int)location.X, 0));
+                Point influencePoint = new Point((int)location.X, (int)(borders.Y - Constants.BORDER_DISTANCE * 2));
+                Point adjustedPoint = Constants.distanceAdjust(influencePoint, borders.Y - Constants.BORDER_DISTANCE);
+                adjustedPoint.X = (int)location.X;
+                influenceBoid(influencePoint);
             }
-            else if(location.Y < Constants.BORDER_DISTANCE)
+            else if(location.Y < Constants.BORDER_DISTANCE) //Top
             {
-                influenceBoid(new Point((int)borders.Y, (int)location.X));
+                Point influencePoint = new Point((int)(Constants.BORDER_DISTANCE * 2), (int)location.X);
+                Point adjustedPoint = Constants.distanceAdjust(influencePoint, location.Y);
+                adjustedPoint.X = (int)location.X;
+                influenceBoid(influencePoint);
             }
-
-
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -94,6 +106,15 @@ namespace FlockBehavior
         public void influenceBoid(Point pointOfInterest)
         {
             influenceVector += new Vector2(pointOfInterest.X - location.X, pointOfInterest.Y - location.Y);
+        }
+
+        protected bool isWithinBorders()
+        {
+            if (location.X > borders.X - Constants.BORDER_DISTANCE) return false; //Right side
+            if (location.X < Constants.BORDER_DISTANCE) return false; //Left side
+            if (location.Y > borders.Y - Constants.BORDER_DISTANCE) return false; //Bottom
+            if (location.Y < Constants.BORDER_DISTANCE) return false; //Top
+            return (true);
         }
     }
 }
